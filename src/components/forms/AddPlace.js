@@ -1,13 +1,7 @@
 import React, {useState} from 'react'
 
-const AddPlaceForm = () => {
-    const [place,setPlace] = useState({
-		name : "",
-		baseprice : "",
-		description : "",
-		categoryId : "",
-		image : ""
-	})
+const AddPlaceForm = ({categories}) => {
+    const [place,setPlace] = useState({})
 
 	const formData = new FormData()
 
@@ -19,33 +13,42 @@ const AddPlaceForm = () => {
 	}
 
 	const handleChangeFile = e => {
-		console.log(e.target.files[0])
+		let allImages = [{}]		
+		for (var value of e.target.files) {
+			console.log(value.name)
+			allImages.push(value)
+		}
+				 
 		setPlace({
 			...place,
-			image : e.target.files[0]
+			images : allImages.slice(1)
 		})
-		console.log(place)
 	}
-	const handleSubmitProduct = (e) => {
+	const handleSubmitPlace = (e) => {
 		e.preventDefault()
-		formData.append('name', product.name)
-		formData.append('baseprice', product.price)
-		formData.append('description', product.description)
-		formData.append('categoryId', product.categoryId)
-		formData.append('userId', product.categoryId)
-		formData.append('hostId', product.categoryId)
-		formData.append('image', product.image)
+		formData.append('name', place.name)
+		formData.append('baseprice', place.baseprice)
+		formData.append('location', place.location)
+		formData.append('minrec', place.minrec)
+		formData.append('maxrec', place.maxrec)
+		formData.append('description', place.description)
+		formData.append('categoryId', place.categoryId)
+		formData.append('hostId', place.hostId)
+		place.images.forEach(image => {
+			formData.append('images',image)
+		})
 
+		console.log(formData.get('images'))
 		for (var value of formData.values()) {
 		   console.log(value); 
 		}
-		let url = 'http://localhost:3001/products/'
+		let url = 'http://localhost:8000/places/'
 		fetch(url, {
 			method : "POST",
 			// mode : "no-cors",
 			headers : {
 				// "Content-Type" : "application/json",
-				"Authorization" : localStorage.getItem('token'),
+				"Authorization" : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlM2ZmZGY1MmVkMGEwMWE4NzdhYTUxMyIsImlhdCI6MTU4MTM3MzQ3MX0.eI95wId94F0i1Zeq5kO5N3JieX2r9IrBT7Xtg9b2gHk',
 				"Access-Control-Allow-Origin" : "*"
 			},
 			body : formData,
@@ -61,7 +64,7 @@ const AddPlaceForm = () => {
         <React.Fragment>
 				<h3 className="mt-3">Add Product</h3>
 				<hr/>
-				<form onSubmit={handleSubmitProduct} enctype="multipart/form-data">
+				<form onSubmit={handleSubmitPlace} enctype="multipart/form-data">
 					<div className="form-group">
 						<label htmlFor="name">Name: </label>
 						<input 
@@ -73,11 +76,41 @@ const AddPlaceForm = () => {
 						/>
 					</div>
 					<div className="form-group">
-						<label htmlFor="price">Price: </label>
+						<label htmlFor="location">Location: </label>
+						<input 
+							type="text" 
+							name="location"
+							id="location"
+							className="form-control"
+							onChange={(e) => handleChangeText(e)}
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="baseprice">Base Price: </label>
 						<input 
 							type="number" 
-							name="price" 
-							id="price" 
+							name="baseprice" 
+							id="baseprice" 
+							className="form-control"
+							onChange={(e) => handleChangeText(e)}
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="minrec">Minimum number of people recommended: </label>
+						<input 
+							type="number" 
+							name="minrec" 
+							id="minrec" 
+							className="form-control"
+							onChange={(e) => handleChangeText(e)}
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="maxrec">Maximum number of people recommended: </label>
+						<input 
+							type="number" 
+							name="maxrec" 
+							id="maxrec" 
 							className="form-control"
 							onChange={(e) => handleChangeText(e)}
 						/>
@@ -106,7 +139,8 @@ const AddPlaceForm = () => {
 							type="file" 
 							name="image" 
 							id="image" 
-							className="form-control-file" 
+							className="form-control-file"
+							multiple 
 							onChange={(e) => handleChangeFile(e)} 
 						/>
 					</div>

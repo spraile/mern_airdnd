@@ -3,11 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Navbar from './components/layouts/Navbar';
 import Places from './components/Places';
 import PlaceView from './components/layouts/PlaceView';
+import AddPlace from './components/forms/AddPlace';
 
 
 function App() {
   const [topPlaces,setTopPlaces] = useState([])
   const [selectedPlace,setSelectedPlace] = useState({})
+	const [categories,setCategories] = useState([])
+
   useEffect(() => {
     fetch("http://localhost:8000/places", {
       method : "GET"
@@ -17,6 +20,16 @@ function App() {
       setTopPlaces(places)
     })
     .catch(error=>console.log(error))
+
+    fetch("http://localhost:8000/categories", {
+			method : "GET"
+		})
+		.then(data => data.json())
+		.then(categories => {
+			setCategories(categories)
+    })
+    .catch(error=>console.log(error))
+    
 
   }, [])
 
@@ -41,6 +54,9 @@ function App() {
               </Route>
               <Route path={"/places/view"}>
                 <PlaceView selectedPlace={selectedPlace} />  
+              </Route>
+              <Route path={"/places/add-place"}>
+                <AddPlace categories={categories}/>  
               </Route>
             </Switch>
         </div>
