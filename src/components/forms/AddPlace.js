@@ -48,7 +48,7 @@ const AddPlaceForm = ({categories}) => {
 			// mode : "no-cors",
 			headers : {
 				// "Content-Type" : "application/json",
-				"Authorization" : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlM2ZmZGY1MmVkMGEwMWE4NzdhYTUxMyIsImlhdCI6MTU4MTM3MzQ3MX0.eI95wId94F0i1Zeq5kO5N3JieX2r9IrBT7Xtg9b2gHk',
+				"Authorization" : localStorage.getItem('token'),
 				"Access-Control-Allow-Origin" : "*"
 			},
 			body : formData,

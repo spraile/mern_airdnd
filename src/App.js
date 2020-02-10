@@ -4,6 +4,8 @@ import Navbar from './components/layouts/Navbar';
 import Places from './components/Places';
 import PlaceView from './components/layouts/PlaceView';
 import AddPlace from './components/forms/AddPlace';
+import Login from './components/forms/LoginForm';
+import Register from './components/forms/RegisterForm';
 
 
 function App() {
@@ -57,6 +59,12 @@ function App() {
               </Route>
               <Route path={"/places/add-place"}>
                 <AddPlace categories={categories}/>  
+              </Route>
+              <Route path={"/login"}>
+                <Login/>  
+              </Route>
+              <Route path={"/register"}>
+                <Register/>  
               </Route>
             </Switch>
         </div>
