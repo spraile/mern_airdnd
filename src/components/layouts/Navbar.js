@@ -25,16 +25,16 @@ const Navbar = () => {
 							<Link to="/" className="nav-link">Places</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/add-product" className="nav-link">Hosting? List your place</Link>
+							<Link to="/add-place" className="nav-link">Hosting? List your place</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/transactions" className="nav-link">Reservations</Link>
+							<Link to="/reservations" className="nav-link">Reservations</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/cart" className="nav-link">Requests</Link>
+							<Link to="/requests" className="nav-link">Requests</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/register" className="nav-link">Become a Host</Link>
+							<Link to="/become-a-host" className="nav-link">Become a Host</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/register" className="nav-link">Sign up</Link>
