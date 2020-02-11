@@ -1,7 +1,25 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
-const AddPlaceForm = ({categories}) => {
-    const [place,setPlace] = useState({})
+const EditPlace = ({categories, selectedPlace}) => {
+    const [place,setPlace] = useState({
+		name : selectedPlace.name,
+		baseprice : selectedPlace.baseprice,
+		categoryId : selectedPlace.categoryId,
+		minrec : selectedPlace.minrec,
+		maxrec : selectedPlace.maxrec,
+		location : selectedPlace.location,
+    })
+
+    useEffect(() => {
+    	setPlace({
+    		name : selectedPlace.name,
+    		baseprice : selectedPlace.baseprice,
+    		categoryId : selectedPlace.categoryId,
+    		minrec : selectedPlace.minrec,
+    		maxrec : selectedPlace.maxrec,
+    		location : selectedPlace.location,
+    	})
+    },[selectedPlace._id])
 
 	const formData = new FormData()
 
@@ -12,49 +30,21 @@ const AddPlaceForm = ({categories}) => {
 		})
 	}
 
-	const handleChangeFile = e => {
-		let allImages = [{}]		
-		for (var value of e.target.files) {
-			console.log(value.name)
-			allImages.push(value)
-		}
-				 
-		setPlace({
-			...place,
-			images : allImages.slice(1)
-		})
-	}
-	const handleSubmitPlace = (e) => {
+	const handleEditPlace = (e) => {
 		e.preventDefault()
-		formData.append('name', place.name)
-		formData.append('baseprice', place.baseprice)
-		formData.append('location', place.location)
-		formData.append('minrec', place.minrec)
-		formData.append('maxrec', place.maxrec)
-		formData.append('description', place.description)
-		formData.append('categoryId', place.categoryId)
-		formData.append('hostId', place.hostId)
-		place.images.forEach(image => {
-			formData.append('images',image)
-		})
-
-		console.log(formData.get('images'))
-		for (var value of formData.values()) {
-		   console.log(value); 
-		}
-		let url = 'http://localhost:8000/places/'
+		console.log(place)
+		let url = 'http://localhost:8000/places/'+selectedPlace._id
 		fetch(url, {
-			method : "POST",
+			method : "PUT",
 			// mode : "no-cors",
 			headers : {
-				// "Content-Type" : "application/json",
+				"Content-Type" : "application/json",
 				"Authorization" : localStorage.getItem('token'),
-				"Access-Control-Allow-Origin" : "*"
 			},
-			body : formData,
+			body : JSON.stringify(place),
 		})
 		.then(data => data.json())
-		.then(newProduct => console.log(newProduct))
+		.then(newPlace => console.log(newPlace))
 		.catch(error => {
 			console.log(error)
 		})
@@ -62,9 +52,9 @@ const AddPlaceForm = ({categories}) => {
 
     return (
         <React.Fragment>
-				<h3 className="mt-3">Add Product</h3>
+				<h3 className="mt-3">{selectedPlace.name}</h3>
 				<hr/>
-				<form onSubmit={handleSubmitPlace} enctype="multipart/form-data">
+				<form onSubmit={handleEditPlace} >
 					<div className="form-group">
 						<label htmlFor="name">Name: </label>
 						<input 
@@ -73,6 +63,7 @@ const AddPlaceForm = ({categories}) => {
 							id="name"
 							className="form-control"
 							onChange={(e) => handleChangeText(e)}
+							value={place.name}
 						/>
 					</div>
 					<div className="form-group">
@@ -82,6 +73,7 @@ const AddPlaceForm = ({categories}) => {
 							name="location"
 							id="location"
 							className="form-control"
+							value={place.location}
 							onChange={(e) => handleChangeText(e)}
 						/>
 					</div>
@@ -92,6 +84,7 @@ const AddPlaceForm = ({categories}) => {
 							name="baseprice" 
 							id="baseprice" 
 							className="form-control"
+							value={place.baseprice}
 							onChange={(e) => handleChangeText(e)}
 						/>
 					</div>
@@ -102,6 +95,7 @@ const AddPlaceForm = ({categories}) => {
 							name="minrec" 
 							id="minrec" 
 							className="form-control"
+							value={place.minrec}
 							onChange={(e) => handleChangeText(e)}
 						/>
 					</div>
@@ -112,6 +106,7 @@ const AddPlaceForm = ({categories}) => {
 							name="maxrec" 
 							id="maxrec" 
 							className="form-control"
+							value={place.maxrec}
 							onChange={(e) => handleChangeText(e)}
 						/>
 					</div>
@@ -126,38 +121,24 @@ const AddPlaceForm = ({categories}) => {
 							<option disabled selected>Select category</option>
 							{
 								categories.map(category => {
-									return (
-										<option value={category._id}>{category.name}</option>
+									if(category._id == selectedPlace.categoryId){
+										return (
+											<option value={category._id} selected>{category.name}</option>
 									)
+									} else {
+										return (
+											<option value={category._id}>{category.name}</option>
+										)
+									}
 								})
 							}
 						</select>
 					</div>
-					<div className="form-group">
-						<label htmlFor="image">Image</label>
-						<input 
-							type="file" 
-							name="image" 
-							id="image" 
-							className="form-control-file"
-							multiple 
-							onChange={(e) => handleChangeFile(e)} 
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="description">Description: </label>
-						<textarea 
-							name="description" 
-							id="description" 
-							rows="5" 
-							className="form-control" 
-							onChange={(e) => handleChangeText(e)}
-						></textarea>
-					</div>
-					<button className="btn btn-primary">Add Place</button>
+
+					<button className="btn btn-primary">Update Place</button>
 				</form>
 			</React.Fragment>
     )
 }
 
-export default AddPlaceForm
+export default EditPlace

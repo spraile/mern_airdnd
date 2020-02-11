@@ -6,20 +6,36 @@ import PlaceView from './components/layouts/PlaceView';
 import AddPlace from './components/forms/AddPlace';
 import Login from './components/forms/LoginForm';
 import Register from './components/forms/RegisterForm';
-
+import DayPicker from './components/layouts/DayPicker'
+import HostPanel from './components/HostPanel'
 
 function App() {
   const [topPlaces,setTopPlaces] = useState([])
+  const [places,setPlaces] = useState([])
   const [selectedPlace,setSelectedPlace] = useState({})
 	const [categories,setCategories] = useState([])
 
   useEffect(() => {
+
+    //top places
     fetch("http://localhost:8000/places", {
       method : "GET"
     })
     .then(data => data.json())
     .then(places => {
+      places = places.slice(0,4)
       setTopPlaces(places)
+    })
+    .catch(error=>console.log(error))
+
+
+    // all places
+    fetch("http://localhost:8000/places", {
+      method : "GET"
+    })
+    .then(data => data.json())
+    .then(places => {
+      setPlaces(places)
     })
     .catch(error=>console.log(error))
 
@@ -52,10 +68,18 @@ function App() {
             <Navbar/>
             <Switch>
               <Route exact path="/">
-                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace}/>  
+                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} />  
               </Route>
               <Route path={"/places/view"}>
                 <PlaceView selectedPlace={selectedPlace} />  
+              </Route>
+              <Route path={"/my-places"}>
+                <HostPanel 
+                  selectedPlace={selectedPlace} 
+                  categories={categories} 
+                  places={places} 
+                  handleSelectedPlace={handleSelectedPlace}
+                />  
               </Route>
               <Route path={"/places/add-place"}>
                 <AddPlace categories={categories}/>  
@@ -65,6 +89,9 @@ function App() {
               </Route>
               <Route path={"/register"}>
                 <Register/>  
+              </Route>
+              <Route path={"/daypicker"}>
+                <DayPicker />  
               </Route>
             </Switch>
         </div>

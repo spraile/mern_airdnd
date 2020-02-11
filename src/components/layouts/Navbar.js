@@ -25,6 +25,9 @@ const Navbar = () => {
 							<Link to="/" className="nav-link">Places</Link>
 						</li>
 						<li className="nav-item">
+							<Link to="/my-places" className="nav-link">My Places</Link>
+						</li>
+						<li className="nav-item">
 							<Link to="/places/add-place" className="nav-link">Hosting? List your place</Link>
 						</li>
 						<li className="nav-item">
@@ -37,7 +40,7 @@ const Navbar = () => {
 							<Link to="/become-a-host" className="nav-link">Become a Host</Link>
 						</li>
 						<li className="nav-item">
-							<Link to="/register" className="nav-link">Sign up</Link>
+							<Link to="/register" className="nav-link">Register</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/login" className="nav-link">Login</Link>

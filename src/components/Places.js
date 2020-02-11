@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom"
 
-const Places = ({topPlaces,handleSelectedPlace}) => {
+const Places = ({topPlaces,handleSelectedPlace, categories}) => {
 
 	return (
 		<div>

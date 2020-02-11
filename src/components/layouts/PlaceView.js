@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom"
 
 const Places = ({selectedPlace, handleSelectedPlace}) => {
 	const backToMain = () => {
@@ -10,8 +11,15 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 		return (
 
 			<div className="container">
-				<h3>{selectedPlace.name}</h3>
-				<small>{selectedPlace.location}</small>
+				<div className="row">
+					<div className="col-11">
+						<h3>{selectedPlace.name}</h3>
+						<small>{selectedPlace.location}</small>
+					</div>
+					<div className="col-1">
+						<Link to="/my-places">EDIT ICON</Link>
+					</div>
+				</div>
 				<div className="row">
 					<div className="col-12 col-md-6">
 						<img src={"http://localhost:8000"+selectedPlace.images[0].image} className="w-100"alt=""/>
