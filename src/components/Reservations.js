@@ -19,9 +19,24 @@ const Reservations = ({places}) => {
 	},[])
 	
 	const handleActionButton = (decision,reservation) => {
+		let stripe = {
+			userId : reservation.userId,
+			price : reservation.price
+		}
 
-		let stat = { status : decision}
-		fetch('http://localhost:8000/reservations/'+reservation._id, {
+		fetch('http://localhost:8000/reservations/stripe',{
+			method : "POST",
+			headers : {
+				"Content-Type" : "application/json",
+				"Authorization" : localStorage.getItem('token'),
+			},
+			body : JSON.stringify(stripe)
+		})
+		.then(data => data.json())
+		.then(result => {
+			let receiptUrl = result.receipt_url
+			let stat = { status : decision, url : receiptUrl }
+			fetch('http://localhost:8000/reservations/'+reservation._id, {
 			method : "PUT",
 			headers : {
 				"Content-Type" : "application/json",
@@ -32,6 +47,10 @@ const Reservations = ({places}) => {
 		.then(data => data.json())
 		.then(updated => console.log(updated))
 		.catch(err => console.log(err))
+		})
+		.catch(err => console.log(err))
+		
+		
 		switch (decision) {
 			case 'Accepted' :
 				// console.log(reservation)
@@ -72,7 +91,7 @@ const Reservations = ({places}) => {
 						<button className="btn btn-outline-info">Rejected</button>
 						<button className="btn btn-outline-info">Completed</button>
 					</div>
-					<div className="btn-group-vertical w-100">
+					<div className="btn-group-vertical w-100 my-5">
 						{hostPlaces.map(place => {
 							return (
 								<button className="btn btn-outline-info w-100">{place.name}</button>		
@@ -89,7 +108,7 @@ const Reservations = ({places}) => {
 								<th scope="col">Place</th>
 								<th scope="col">Reservation Start Date</th>
 								<th scope="col">{JSON.parse(localStorage.getItem('user')).role == 'host' ?"Customer" : "Host"}</th>
-								<th scope="col">Actions</th>
+								<th scope="col" className={JSON.parse(localStorage.getItem('user')).role == 'host' ?"" : "d-none"}>Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -101,12 +120,18 @@ const Reservations = ({places}) => {
 											<td>{reservation.placeName}</td>
 											<td>Reservation date</td>
 											<td>{JSON.parse(localStorage.getItem('user')).role == 'host' ? reservation.userName : reservation.hostName}</td>
-											<td>
-												<button className="btn btn-success" onClick={() => handleActionButton("Accepted",reservation)}>Accept</button>
-												<button className="btn btn-danger" onClick={() => handleActionButton("Rejected",reservation)}>Reject</button>
-												<button className="btn btn-info" onClick={() => handleActionButton("Completed",reservation)}>Complete</button>
+											<td className={JSON.parse(localStorage.getItem('user')).role == 'host' ?"" : "d-none"}>
+												<button className="btn btn-success w-100" onClick={() => handleActionButton("Accepted",reservation)}>Accept</button>
+												<button className="btn btn-danger w-100" onClick={() => handleActionButton("Rejected",reservation)}>Reject</button>
+												{/* <button className="btn btn-info" onClick={() => handleActionButton("Completed",reservation)}>Complete</button> */}
 
 											</td>
+											<td className={JSON.parse(localStorage.getItem('user')).role == 'user' ?"" : "d-none"}>
+												<a className="btn btn-info w-100" href={ reservation.url }>Reservation Details</a>
+												{/* <button className="btn btn-info" onClick={() => handleActionButton("Completed",reservation)}>Complete</button> */}
+
+											</td>
+
 										</tr>
 									)
 								})
