@@ -127,7 +127,7 @@ const Reservations = ({places}) => {
 
 											</td>
 											<td className={JSON.parse(localStorage.getItem('user')).role == 'user' ?"" : "d-none"}>
-												<a className="btn btn-info w-100" href={ reservation.url }>Reservation Details</a>
+												<a className="btn btn-info w-100" href={ reservation.url}>{ reservation.url == "None" ? "Waiting for reservation acceptance" : "Payment details"}</a>
 												{/* <button className="btn btn-info" onClick={() => handleActionButton("Completed",reservation)}>Complete</button> */}
 
 											</td>

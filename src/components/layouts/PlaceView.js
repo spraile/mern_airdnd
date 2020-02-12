@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom"
 import DayPicker from "./DayPicker"
-import Login from './../forms/LoginForm';
 
 
 const Places = ({selectedPlace, categories}) => {
@@ -50,7 +49,6 @@ const Places = ({selectedPlace, categories}) => {
 		}
 	}
 
-
 	const handleSendReservationRequest = () => {
 		let url = 'http://localhost:8000/reservations/'
 		fetch(url, {
@@ -71,7 +69,7 @@ const Places = ({selectedPlace, categories}) => {
 		return (
 
 			<div className="container">
-				<div className="row">
+				<div className="row pt-5">
 					<div className="col-11">
 						<h3>{selectedPlace.name}</h3>
 						<small>{selectedPlace.location}</small>
@@ -80,7 +78,7 @@ const Places = ({selectedPlace, categories}) => {
 						{icon(usr)}
 					</div>
 				</div>
-				<div className="row">
+				<div className="row py-3">
 					<div className="col-12 col-md-6">
 						<img src={"http://localhost:8000"+selectedPlace.images[0].image} className="w-100 my-img"alt=""/>
 					</div>
@@ -88,23 +86,25 @@ const Places = ({selectedPlace, categories}) => {
 						<img src={"http://localhost:8000"+selectedPlace.images[1].image} className="w-100 my-img"alt=""/>
 					</div>
 				</div>
-				<div className="row">
+				<div className="row py-3">
 					<div className="col-12 col-md-8">
 						<h4>{categories.find(category => category._id == selectedPlace.categoryId).name+" hosted by " + selectedPlace.hostName }</h4>
 						<p>{selectedPlace.description}</p>
 					</div>
 					<div className="col-12 col-md-4">
-						<h4>{selectedPlace.baseprice} / night</h4>
+						<h4><strong>&#8369;{selectedPlace.baseprice}</strong> / night</h4>
+						<div className={usr.role == 'host' ? "d-none" : "" }>
 						<h4 className={!bookingDetails.guestCount ? "d-none" : ""}><strong>&#8369;{bookingDetails.price}</strong> for {reservedDates.length} nights</h4>
 						<button 
 							type="button" 
-							className="btn btn-primary w-100 border-radius-0" 
+							className="btn btn-primary w-100 border-radius-0 my-3" 
 							data-toggle="modal" 
 							data-target={"#C"+selectedPlace._id}
 						>
 							{ bookingDetails.guestCount ? "Edit" : "Check Availability"}
 						</button>
 						<button className={!bookingDetails.guestCount ? "btn btn-success w-100 border-radius-0 d-none" : "btn btn-success w-100 border-radius-0"} onClick={handleSendReservationRequest}>Reserve</button>
+						</div>
 
 
 					</div>
