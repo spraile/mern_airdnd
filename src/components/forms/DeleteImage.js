@@ -22,9 +22,10 @@ const RemoveImage = ({selectedPlace}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		let url = 'http://localhost:8000/'+selectedPlace._id+"/"+imageId
+		let url = 'http://localhost:8000/places/'+selectedPlace._id+"/"+imageId
+		console.log(url)
 		fetch(url, {
-			method : "DELETE",
+			method : "PUT",
 			headers : {
 				"Content-Type" : "application/json",
 				"Authorization" : localStorage.getItem('token')

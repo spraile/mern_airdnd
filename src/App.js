@@ -8,6 +8,7 @@ import Login from './components/forms/LoginForm';
 import Register from './components/forms/RegisterForm';
 import DayPicker from './components/layouts/DayPicker'
 import HostPanel from './components/HostPanel'
+import Reservations from './components/Reservations'
 
 function App() {
   const [topPlaces,setTopPlaces] = useState([])
@@ -99,6 +100,9 @@ function App() {
               </Route>
               <Route path={"/daypicker"}>
                 <DayPicker />  
+              </Route>
+              <Route path={"/reservations"}>
+                <Reservations places={places}/>  
               </Route>
             </Switch>
         </div>

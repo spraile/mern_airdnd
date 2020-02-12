@@ -4,13 +4,20 @@ const AddImage = ({selectedPlace}) => {
     const [place,setPlace] = useState({})
 
 	const formData = new FormData()
+	
+	const handleChangeImage = (e) => {
+		console.log(e.target.files[0])
+		setPlace({ image : e.target.files[0]})
+		console.log(place)
+	}
 
 	const handleAddImage = (e) => {
 		e.preventDefault()
 		console.log(place)
-		formData.append('images',place.image)
+		formData.append('image',place.image)
+		console.log(formData.get('image'))
 
-		let url = 'http://localhost:8000/places/'+selectedPlace._id
+		let url = 'http://localhost:8000/places/'+selectedPlace._id+"/add-image"
 		fetch(url, {
 			method : "PUT",
 			// mode : "no-cors",
@@ -39,7 +46,7 @@ const AddImage = ({selectedPlace}) => {
 							name="image" 
 							id="image" 
 							className="form-control-file"
-							onChange={(e) => handleAddImage(e)} 
+							onChange={(e) => handleChangeImage(e)} 
 						/>
 					</div>
 

@@ -93,7 +93,7 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 
 					</div>
 				</div>
-				<div className="modal fade" id={"C"+selectedPlace._id} tabindex="-1" role="dialog">
+				<div className="modal fade" id={"C"+selectedPlace._id} tabIndex="-1" role="dialog">
 					<div className="modal-dialog modal-lg">
 						
 						<div className="modal-content">
@@ -106,7 +106,7 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 							<div className="container">
 								<div className="row">
 									<div className="col-12 col-md-6 px-5">
-										<DayPicker handleChangeReservedDates={handleChangeReservedDates} />
+										<DayPicker handleChangeReservedDates={handleChangeReservedDates} selectedPlace={selectedPlace}/>
 									</div>
 									<div className="col-12 col-md-6 px-5">
 										<input 
