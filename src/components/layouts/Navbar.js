@@ -12,6 +12,95 @@ const Navbar = ({handleLogOut}) => {
 		.then(user => console.log(user))
 		.catch(err => console.log(err))
 	} 
+	const navWhich = (role) => {
+		if(role == 'host') {
+			return (
+				<Fragment>
+					<li className="nav-item">
+						<NavLink to="/" className="nav-link">Places</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink to="/my-places" className="nav-link">My Places</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink to="/places/add-place" className="nav-link">Hosting? List your place</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink to="/reservations" className="nav-link">Reservations</NavLink>
+					</li>
+					<li className="nav-item dropdown">
+						<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+						{usr.firstname}
+						</a>
+						<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+							<Link className="dropdown-item" to="#">Profile</Link>
+							<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
+						<div className="dropdown-divider"></div>
+							<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
+						</div>
+					</li>
+
+				</Fragment>
+			)
+		} else if (role == 'user') {
+			return (
+				<Fragment>
+					<li className="nav-item">
+						<NavLink to="/" className="nav-link">Places</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink to="/reservations" className="nav-link">Reservations</NavLink>
+					</li>
+					<li className="nav-item dropdown">
+						<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+						Username
+						</a>
+						<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+							<Link className="dropdown-item" to="#">Profile</Link>
+							<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
+						<div className="dropdown-divider"></div>
+							<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
+						</div>
+					</li>
+				</Fragment>
+			)
+		} else if(role == 'admin') {
+			return (
+				<Fragment>
+				<li className="nav-item">
+					<NavLink to="/requests" className="nav-link">Requests</NavLink>
+				</li>
+				<li className="nav-item dropdown">
+					<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+					{usr.firstname}
+					</a>
+					<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+						<Link className="dropdown-item" to="#">Profile</Link>
+						<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
+					<div className="dropdown-divider"></div>
+						<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
+					</div>
+				</li>
+			</Fragment>
+			)
+		} else {
+			return (
+				<Fragment>
+				<li className="nav-item">
+					<NavLink to="/" className="nav-link">Places</NavLink>
+				</li>
+				<li className="nav-item">
+					<NavLink to="/register" className="nav-link">Register</NavLink>
+				</li>
+				<li className="nav-item">
+					<NavLink to="/login" className="nav-link">Login</NavLink>
+				</li>
+			</Fragment>
+			)
+		}
+	}
+
+	const usr = JSON.parse(localStorage.getItem('user'))
 	return (
 		<Fragment>
 			<nav className="navbar navbar-dark bg-dark navbar-expand-sm">
@@ -33,41 +122,8 @@ const Navbar = ({handleLogOut}) => {
 							</li>
 						</ul>
 						<ul className="navbar-nav ml-auto">
-							<li className="nav-item">
-								<NavLink to="/" className="nav-link">Places</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink to="/my-places" className="nav-link">My Places</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink to="/places/add-place" className="nav-link">Hosting? List your place</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink to="/reservations" className="nav-link">Reservations</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink to="/requests" className="nav-link">Requests</NavLink>
-							</li>
-							{/* <li className="nav-item">
-								<NavLink to="/become-a-host" className="nav-link">Become a Host</NavLink>
-							</li> */}
-							<li className="nav-item">
-								<NavLink to="/register" className="nav-link">Register</NavLink>
-							</li>
-							<li className="nav-item">
-								<NavLink to="/login" className="nav-link">Login</NavLink>
-							</li>
-							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-								Username
-								</a>
-								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-									<Link className="dropdown-item" to="#">Profile</Link>
-									<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
-								<div className="dropdown-divider"></div>
-									<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
-								</div>
-							</li>
+							{usr ? navWhich(usr.role) : navWhich(usr)}
+							
 						</ul>
 					</div>
 				</div>

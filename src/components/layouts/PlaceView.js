@@ -69,10 +69,10 @@ const Places = ({selectedPlace, categories}) => {
 				</div>
 				<div className="row">
 					<div className="col-12 col-md-6">
-						<img src={"http://localhost:8000"+selectedPlace.images[0].image} className="w-100"alt=""/>
+						<img src={"http://localhost:8000"+selectedPlace.images[0].image} className="w-100 my-img"alt=""/>
 					</div>
 					<div className="col-12 col-md-6">
-						<img src={"http://localhost:8000"+selectedPlace.images[1].image} className="w-100"alt=""/>
+						<img src={"http://localhost:8000"+selectedPlace.images[1].image} className="w-100 my-img"alt=""/>
 					</div>
 				</div>
 				<div className="row">
@@ -81,16 +81,17 @@ const Places = ({selectedPlace, categories}) => {
 						<p>{selectedPlace.description}</p>
 					</div>
 					<div className="col-12 col-md-4">
-						<h4>{selectedPlace.baseprice}</h4>
+						<h4>{selectedPlace.baseprice} / night</h4>
+						<h4 className={!bookingDetails.guestCount ? "d-none" : ""}><strong>&#8369;{bookingDetails.price}</strong> for {reservedDates.length} nights</h4>
 						<button 
 							type="button" 
-							className="btn btn-primary" 
+							className="btn btn-primary w-100 border-radius-0" 
 							data-toggle="modal" 
 							data-target={"#C"+selectedPlace._id}
 						>
-							Check Availability
+							{ bookingDetails.guestCount ? "Edit" : "Check Availability"}
 						</button>
-						<button className="btn btn-success w-100" onClick={handleSendReservationRequest}>Reserve</button>
+						<button className={!bookingDetails.guestCount ? "btn btn-success w-100 border-radius-0 d-none" : "btn btn-success w-100 border-radius-0"} onClick={handleSendReservationRequest}>Reserve</button>
 
 
 					</div>

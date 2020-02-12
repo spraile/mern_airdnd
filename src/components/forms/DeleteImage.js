@@ -56,7 +56,7 @@ const RemoveImage = ({selectedPlace}) => {
 									)
 								})}
 							</select>
-							<img src={"http://localhost:8000"+imageImage} alt="Image to be deleted" className="img-fluid"/>					
+							<img src={"http://localhost:8000"+imageImage} alt="Image to be deleted" className="img-fluid delete-img"/>					
 						</div>
 						<button className="btn btn-danger">Remove Image</button>
 					</form>

@@ -20,6 +20,16 @@
     font-size: xxx-large;
 }
 
+.my-img {
+    height : 50vh;
+    object-fit: cover;
+}
+
+.delete-img {
+    height : 200px;
+    object-fit: cover;
+}
+
 @media (min-width: 34em) {
     .card-columns {
         -webkit-column-count: 2;
