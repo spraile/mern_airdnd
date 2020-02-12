@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 const MyPlacesNav = ({selectedPlace, places, handleSelectedPlace}) => {
-	let hostPlaces = places.filter(place => place.hostId == localStorage.getItem('user').id)
+	let hostPlaces = places.filter(place => place.hostId == JSON.parse(localStorage.getItem('user')).id)
 	return (
 		<div className="btn-group-vertical">
 			{

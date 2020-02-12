@@ -1,10 +1,53 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from "react-router-dom"
 import DayPicker from "./DayPicker"
 
 const Places = ({selectedPlace, handleSelectedPlace}) => {
+	const [reservedDates, setReservedDates] = useState([])
+	const [guestCount, setGuestCount] = useState(null)
+	const [bookingDetails, setBookingDetails] = useState({
+		guestCount : 0,
+		reservedDates : [],
+		price : 0
+	})
+
 	const backToMain = () => {
 		window.location.href = "http://localhost:3000/"
+	}
+	const handleChangeReservedDates = (dates) => {
+		setReservedDates(dates)
+	}
+
+	const handleChangeGuestCount = (e) => {
+		setGuestCount({
+			number : e.target.value
+		})
+	}
+
+	const handleSaveDetails = () => {
+		setBookingDetails({
+			guestCount : guestCount.number,
+			reservedDates : reservedDates,
+			price : selectedPlace.baseprice*reservedDates.length,
+			hostId : selectedPlace.hostId,
+			userId : JSON.parse(localStorage.getItem('user')).id,
+			placeId : selectedPlace._id
+		})
+	}
+
+	const handleSendReservationRequest = () => {
+		let url = 'http://localhost:8000/reservations/'
+		fetch(url, {
+			method : "POST",
+			headers : {
+				"Content-Type" : "application/json",
+				"Authorization" : localStorage.getItem('token')
+			},
+			body : JSON.stringify(bookingDetails)
+		})
+		.then( data => data.json())
+		.then( reservation => console.log(reservation))
+		.catch(error => console.log(error))
 	}
 	if(!selectedPlace) {
 		backToMain()
@@ -45,6 +88,7 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 						>
 							Check Availability
 						</button>
+						<button className="btn btn-success w-100" onClick={handleSendReservationRequest}>Reserve</button>
 
 
 					</div>
@@ -62,11 +106,25 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 							<div className="container">
 								<div className="row">
 									<div className="col-12 col-md-6 px-5">
-										<DayPicker />
+										<DayPicker handleChangeReservedDates={handleChangeReservedDates} />
 									</div>
 									<div className="col-12 col-md-6 px-5">
-										<input type="number" className="form-control" placeholder="Number of guests"/>
-										<button className="btn btn-success">Save</button>
+										<input 
+											type="number" 
+											className="form-control" 
+											placeholder="Number of guests"
+											onChange={(e) => handleChangeGuestCount(e)}
+										/>
+										<div className="row">
+											<div className="col-12 col-md-6">
+												<p>{selectedPlace.baseprice} / night</p>
+												<p>{selectedPlace.baseprice*reservedDates.length} for {reservedDates.length} nights</p>
+
+											</div>
+											<div className="col-12 col-md-6">
+												<button className="btn btn-success ml-auto" onClick={handleSaveDetails} data-dismiss="modal">Save</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

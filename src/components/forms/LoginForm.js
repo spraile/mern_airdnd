@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom"
 
-const LoginForm = () => {
+const LoginForm = ({handleIsLogged}) => {
 
 
 	const [formData, setFormData] = useState({
@@ -42,12 +42,23 @@ const LoginForm = () => {
 				console.log(result.token)
 				localStorage.setItem('user', JSON.stringify(result.user))
 				localStorage.setItem('token', "Bearer "+result.token)
+				setFormData({
+					email : "",
+					password : ""
+				});
+				handleIsLogged();
+
 				// console.log(localStorage.getItem('user'))
 		
 			} else {
 				alert.classList.remove('alert-success')
 				alert.classList.add('alert-danger')
+				setFormData({
+					email : formData.email,
+					password : ""
+				})
 			}
+			
 			
 			alert.innerHTML = result.message
 			// console.log(result)

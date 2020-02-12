@@ -2,7 +2,7 @@ import React, {useState,useEffect, Fragment} from 'react'
 import DayPicker, {DateUtils} from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-const StartDayPicker = () => {
+const StartDayPicker = ({handleChangeReservedDates}) => {
 	const [selectedDays, setSelectedDays] = useState([])
 	const handleDayClick = (day, { selected, disabled }) => {
 		if (disabled) {
@@ -18,6 +18,11 @@ const StartDayPicker = () => {
 		newList.push(day)
 		}
 		setSelectedDays([...newList])
+		handleChangeReservedDates([...newList])
+	}
+
+	const handleSave = () => {
+		
 	}
 	return (
 		<Fragment>
@@ -26,8 +31,8 @@ const StartDayPicker = () => {
 				selectedDays={selectedDays}
 				disabledDays={
 					[
-					{daysOfWeek : [0,1]},
-					new Date(2020, 1, 15),
+					// {daysOfWeek : [0,1]},
+					// new Date(2020, 1, 15),
 					{before : new Date()}
 
 					]

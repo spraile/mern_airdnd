@@ -54,7 +54,9 @@ const AddPlaceForm = ({categories}) => {
 			body : formData,
 		})
 		.then(data => data.json())
-		.then(newProduct => console.log(newProduct))
+		.then(newProduct => {
+			console.log(newProduct)
+		})
 		.catch(error => {
 			console.log(error)
 		})
@@ -62,7 +64,7 @@ const AddPlaceForm = ({categories}) => {
 
     return (
         <React.Fragment>
-				<h3 className="mt-3">Add Product</h3>
+				<h3 className="mt-3">List your Place</h3>
 				<hr/>
 				<form onSubmit={handleSubmitPlace} enctype="multipart/form-data">
 					<div className="form-group">

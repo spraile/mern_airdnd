@@ -7,8 +7,11 @@ import MyPlacesNav from './layouts/MyPlacesNav'
 
 
 const HostPanel = ({selectedPlace, categories, places, handleSelectedPlace}) => {
+	let hostPlaces = places.filter(place => place.hostId == JSON.parse(localStorage.getItem('user')).id)
+	console.log(hostPlaces)
 	return (
 		<div className="container">
+			
 			<div className="row">
 				<div className="col-12 col-md-2">
 					<MyPlacesNav selectedPlace={selectedPlace} places={places} handleSelectedPlace={handleSelectedPlace}/>
