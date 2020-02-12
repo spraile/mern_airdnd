@@ -38,7 +38,7 @@ const RemoveImage = ({selectedPlace}) => {
 	return (
 			<div className="row">
 				<div className="col-12">
-					<h3 className="mt-3">Delete Category</h3>
+					<h3 className="mt-3">Remove Image</h3>
 					<hr/>
 					<form onSubmit={handleSubmit}>
 						<div className="form-group">

@@ -53,7 +53,7 @@ const Navbar = ({handleLogOut}) => {
 					</li>
 					<li className="nav-item dropdown">
 						<a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-						Username
+						{usr.firstname}
 						</a>
 						<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 							<Link className="dropdown-item" to="#">Profile</Link>

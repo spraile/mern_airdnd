@@ -36,7 +36,7 @@ const AddImage = ({selectedPlace}) => {
 
     return (
         <React.Fragment>
-				<h3 className="mt-3"><i class="far fa-image"></i></h3>
+				<h3 className="mt-3"><i class="far fa-image"></i>   Add Image</h3>
 				<hr/>
 				<form onSubmit={handleAddImage} >
 					<div className="form-group">

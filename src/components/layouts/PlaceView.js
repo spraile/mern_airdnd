@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom"
 import DayPicker from "./DayPicker"
+import Login from './../forms/LoginForm';
+
 
 const Places = ({selectedPlace, categories}) => {
 	const [reservedDates, setReservedDates] = useState([])
@@ -37,6 +39,17 @@ const Places = ({selectedPlace, categories}) => {
 			placeName : selectedPlace.name
 		})
 	}
+	const usr = JSON.parse(localStorage.getItem('user'))
+	const icon = (usr) => {
+		if(usr) {
+			if(usr.id == selectedPlace.hostId) {
+				return (
+					<Link to="/my-places"><i class="fas fa-cog"></i></Link>
+				)
+			}
+		}
+	}
+
 
 	const handleSendReservationRequest = () => {
 		let url = 'http://localhost:8000/reservations/'
@@ -64,7 +77,7 @@ const Places = ({selectedPlace, categories}) => {
 						<small>{selectedPlace.location}</small>
 					</div>
 					<div className="col-1">
-						<Link to="/my-places"><i class="fas fa-cog"></i></Link>
+						{icon(usr)}
 					</div>
 				</div>
 				<div className="row">
@@ -134,6 +147,7 @@ const Places = ({selectedPlace, categories}) => {
 						</div>
 					</div>
 				</div>
+		
 								
 			</div>
 
