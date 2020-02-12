@@ -2,6 +2,23 @@
     height : 200px;
     object-fit: cover;
 }
+.btn {
+    border-radius: 0;
+}
+.myLink {
+    color : #333;
+}
+.myLink:hover {
+    color : #555;
+}
+
+.container-fluid {
+    padding : 50px 10%
+}
+
+.fas {
+    font-size: xxx-large;
+}
 
 @media (min-width: 34em) {
     .card-columns {
@@ -20,7 +37,7 @@
 }
 
 @media (min-width: 62em) {
-    .card-columns {
+    .card-columns, #my-card-col{
         -webkit-column-count: 4;
         -moz-column-count: 4;
         column-count: 4;
@@ -28,7 +45,7 @@
 }
 
 @media (min-width: 75em) {
-    .card-columns {
+    .card-columns, #my-card-col {
         -webkit-column-count: 4;
         -moz-column-count: 4;
         column-count: 4;

@@ -88,7 +88,7 @@ const Reservations = ({places}) => {
 								<th scope="col">Reservation Code</th>
 								<th scope="col">Place</th>
 								<th scope="col">Reservation Start Date</th>
-								<th scope="col">Customer</th>
+								<th scope="col">{JSON.parse(localStorage.getItem('user')).role == 'host' ?"Customer" : "Host"}</th>
 								<th scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -98,8 +98,9 @@ const Reservations = ({places}) => {
 									return(									
 										<tr>
 											<th scope="row">{reservation.code}</th>
-											<td>{reservation.placeId}</td>
+											<td>{reservation.placeName}</td>
 											<td>Reservation date</td>
+											<td>{JSON.parse(localStorage.getItem('user')).role == 'host' ? reservation.userName : reservation.hostName}</td>
 											<td>
 												<button className="btn btn-success" onClick={() => handleActionButton("Accepted",reservation)}>Accept</button>
 												<button className="btn btn-danger" onClick={() => handleActionButton("Rejected",reservation)}>Reject</button>

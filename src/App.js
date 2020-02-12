@@ -9,6 +9,7 @@ import Register from './components/forms/RegisterForm';
 import DayPicker from './components/layouts/DayPicker'
 import HostPanel from './components/HostPanel'
 import Reservations from './components/Reservations'
+import Requests from './components/Requests'
 
 function App() {
   const [topPlaces,setTopPlaces] = useState([])
@@ -19,6 +20,12 @@ function App() {
     status : false
   })
 
+  const shuffleArray = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  } return array
+  }
   useEffect(() => {
 
     //top places
@@ -28,6 +35,8 @@ function App() {
     .then(data => data.json())
     .then(places => {
       places = places.slice(0,4)
+      places = shuffleArray(places)
+
       setTopPlaces(places)
     })
     .catch(error=>console.log(error))
@@ -39,6 +48,8 @@ function App() {
     })
     .then(data => data.json())
     .then(places => {
+      places = shuffleArray(places)
+
       setPlaces(places)
     })
     .catch(error=>console.log(error))
@@ -70,16 +81,22 @@ function App() {
     setIsLogged({status : true})
   }
 
+  const handleLogOut = () => {
+    setIsLogged({status : false})
+    localStorage.clear()
+
+  }
+
   return (
         <Router>
         <div className="App">
-            <Navbar/>
+            <Navbar handleLogOut={handleLogOut}/>
             <Switch>
               <Route exact path="/">
-                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} />  
+                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
               </Route>
               <Route path={"/places/view"}>
-                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} />} 
+                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} />} 
               </Route>
               <Route path={"/my-places"}>
                 <HostPanel 
@@ -103,6 +120,9 @@ function App() {
               </Route>
               <Route path={"/reservations"}>
                 <Reservations places={places}/>  
+              </Route>
+              <Route path={"/requests"}>
+                <Requests/>  
               </Route>
             </Switch>
         </div>

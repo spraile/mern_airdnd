@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Link} from "react-router-dom"
 import DayPicker from "./DayPicker"
 
-const Places = ({selectedPlace, handleSelectedPlace}) => {
+const Places = ({selectedPlace, categories}) => {
 	const [reservedDates, setReservedDates] = useState([])
 	const [guestCount, setGuestCount] = useState(null)
 	const [bookingDetails, setBookingDetails] = useState({
@@ -30,8 +30,11 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 			reservedDates : reservedDates,
 			price : selectedPlace.baseprice*reservedDates.length,
 			hostId : selectedPlace.hostId,
+			hostName : selectedPlace.hostName,
 			userId : JSON.parse(localStorage.getItem('user')).id,
-			placeId : selectedPlace._id
+			userName : JSON.parse(localStorage.getItem('user')).firstname + " " + JSON.parse(localStorage.getItem('user')).lastname,
+			placeId : selectedPlace._id,
+			placeName : selectedPlace.name
 		})
 	}
 
@@ -61,7 +64,7 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 						<small>{selectedPlace.location}</small>
 					</div>
 					<div className="col-1">
-						<Link to="/my-places">EDIT ICON</Link>
+						<Link to="/my-places"><i class="fas fa-cog"></i></Link>
 					</div>
 				</div>
 				<div className="row">
@@ -74,12 +77,11 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 				</div>
 				<div className="row">
 					<div className="col-12 col-md-8">
-						<h4>{selectedPlace.categoryId+" hosted by host ID"}</h4>
+						<h4>{categories.find(category => category._id == selectedPlace.categoryId).name+" hosted by " + selectedPlace.hostName }</h4>
 						<p>{selectedPlace.description}</p>
 					</div>
 					<div className="col-12 col-md-4">
 						<h4>{selectedPlace.baseprice}</h4>
-						<button className="btn btn-success w-100">Check Availability</button>
 						<button 
 							type="button" 
 							className="btn btn-primary" 
@@ -95,7 +97,7 @@ const Places = ({selectedPlace, handleSelectedPlace}) => {
 				</div>
 				<div className="modal fade" id={"C"+selectedPlace._id} tabIndex="-1" role="dialog">
 					<div className="modal-dialog modal-lg">
-						
+
 						<div className="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title">Check availability</h5>
