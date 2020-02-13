@@ -17,7 +17,7 @@ const AddImage = ({selectedPlace, handlePlacesStatus}) => {
 		formData.append('image',place.image)
 		console.log(formData.get('image'))
 
-		let url = 'http://localhost:8000/places/'+selectedPlace._id+"/add-image"
+		let url = 'https://cap3db.herokuapp.com/'+selectedPlace._id+"/add-image"
 		fetch(url, {
 			method : "PUT",
 			// mode : "no-cors",

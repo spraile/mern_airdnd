@@ -13,7 +13,7 @@ const Places = ({selectedPlace, categories, handleReservationsStatus}) => {
 	})
 
 	const backToMain = () => {
-		window.location.href = "http://localhost:3000/"
+		window.location.href = "https://cap3client.herokuapp.com/"
 	}
 	const handleChangeReservedDates = (dates) => {
 		setReservedDates(dates)
@@ -53,7 +53,7 @@ const Places = ({selectedPlace, categories, handleReservationsStatus}) => {
 	}
 
 	const handleSendReservationRequest = () => {
-		let url = 'http://localhost:8000/reservations/'
+		let url = 'https://cap3db.herokuapp.com/reservations/'
 		fetch(url, {
 			method : "POST",
 			headers : {
@@ -69,7 +69,7 @@ const Places = ({selectedPlace, categories, handleReservationsStatus}) => {
 				status : 'pass',
 				isLoading : true
 			})
-			window.location.href = "http://localhost:3000/reservations"
+			window.location.href = "https://cap3client.herokuapp.com/reservations"
 		})
 		.catch(error => console.log(error))
 	}

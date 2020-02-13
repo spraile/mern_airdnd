@@ -19,7 +19,7 @@ const LoginForm = ({handleIsLogged}) => {
 	const handleLogin = (e) => {
 		e.preventDefault()
 
-		let url = 'http://localhost:8000/users/login'
+		let url = 'https://cap3db.herokuapp.com/users/login'
 		let data = {
 			email : formData.email,
 			password : formData.password

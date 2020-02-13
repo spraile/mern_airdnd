@@ -4,7 +4,7 @@ const DeletePlace = ({selectedPlace,handlePlacesStatus}) => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		let url = 'http://localhost:8000/places/'+selectedPlace._id
+		let url = 'https://cap3db.herokuapp.com/'+selectedPlace._id
 		fetch(url, {
 			method : "DELETE",
 			headers : {

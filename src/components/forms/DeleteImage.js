@@ -22,7 +22,7 @@ const RemoveImage = ({selectedPlace,handlePlacesStatus}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		let url = 'http://localhost:8000/places/'+selectedPlace._id+"/"+imageId
+		let url = 'https://cap3db.herokuapp.com/'+selectedPlace._id+"/"+imageId
 		console.log(url)
 		fetch(url, {
 			method : "PUT",
@@ -62,7 +62,7 @@ const RemoveImage = ({selectedPlace,handlePlacesStatus}) => {
 									)
 								})}
 							</select>
-							<img src={"http://localhost:8000"+imageImage} alt="Image to be deleted" className="img-fluid delete-img"/>					
+							<img src={"https://cap3db.herokuapp.com"+imageImage} alt="Image to be deleted" className="img-fluid delete-img"/>					
 						</div>
 						<button className="btn btn-danger">Remove Image</button>
 					</form>
@@ -88,7 +88,7 @@ const RemoveImage = ({selectedPlace,handlePlacesStatus}) => {
 								<option disabled selected>Select Image</option>
 								
 							</select>
-							<img src={"http://localhost:8000"+imageImage} alt="Image to be deleted" className="img-fluid"/>					
+							<img src={"https://cap3db.herokuapp.com"+imageImage} alt="Image to be deleted" className="img-fluid"/>					
 						</div>
 						<button className="btn btn-danger">Remove Image</button>
 					</form>

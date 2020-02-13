@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import {Link, NavLink} from "react-router-dom"
 const Navbar = ({handleLogOut}) => {
 	const handleHostAccessRequest = () => {
-		fetch('http://localhost:8000/requests/', {
+		fetch('https://cap3db.herokuapp.com/requests/', {
 			method : "POST",
 			headers : {
 				"Authorization" : localStorage.getItem('token')

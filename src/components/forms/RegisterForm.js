@@ -26,7 +26,7 @@ const RegisterForm = () => {
 		if(password !== confirmPassword){
 			alert("Passwords do not match")
 		} else {
-			fetch("http://localhost:8000/users/", {
+			fetch("https://cap3db.herokuapp.com/users/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"

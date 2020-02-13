@@ -42,7 +42,7 @@ const AddPlaceForm = ({categories, handlePlacesStatus}) => {
 		for (var value of formData.values()) {
 		   console.log(value); 
 		}
-		let url = 'http://localhost:8000/places/'
+		let url = 'https://cap3db.herokuapp.com/places/'
 		fetch(url, {
 			method : "POST",
 			// mode : "no-cors",
@@ -61,7 +61,7 @@ const AddPlaceForm = ({categories, handlePlacesStatus}) => {
 				isLoading : true
 			})
 			console.log(newProduct)
-			window.location.href = "http://localhost:3000/my-places"
+			window.location.href = "https://cap3client.herokuapp.com/my-places"
 		})
 		.catch(error => {
 			console.log(error)

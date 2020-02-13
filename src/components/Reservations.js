@@ -54,8 +54,8 @@ const Reservations = ({places,reservations,handlePlacesStatus, handleReservation
 			case 'Accepted' :
 				// console.log(reservation)
 				console.log('Accepted')
-				console.log('http://localhost:8000/places/'+reservation.placeId+"/reservation")
-				fetch('http://localhost:8000/places/'+reservation.placeId+"/reservation", {
+				console.log('https://cap3db.herokuapp.com/'+reservation.placeId+"/reservation")
+				fetch('https://cap3db.herokuapp.com/places/'+reservation.placeId+"/reservation", {
 					method : "PUT",
 					headers : {
 						"Content-Type" : "application/json",
@@ -71,7 +71,7 @@ const Reservations = ({places,reservations,handlePlacesStatus, handleReservation
 					isLoading : true
 			})
 				})
-				fetch('http://localhost:8000/reservations/stripe',{
+				fetch('https://cap3db.herokuapp.com/reservations/stripe',{
 					method : "POST",
 					headers : {
 						"Content-Type" : "application/json",
@@ -83,7 +83,7 @@ const Reservations = ({places,reservations,handlePlacesStatus, handleReservation
 				.then(result => {
 					let receiptUrl = result.receipt_url
 					let stat = { status : decision, url : receiptUrl }
-					fetch('http://localhost:8000/reservations/'+reservation._id, {
+					fetch('https://cap3db.herokuapp.com/reservations/'+reservation._id, {
 					method : "PUT",
 					headers : {
 						"Content-Type" : "application/json",
@@ -106,7 +106,7 @@ const Reservations = ({places,reservations,handlePlacesStatus, handleReservation
 			case 'Rejected' :
 				console.log('Rejected')
 				let stat = { status : decision }
-				fetch('http://localhost:8000/reservations/'+reservation._id, {
+				fetch('https://cap3db.herokuapp.com/reservations/'+reservation._id, {
 				method : "PUT",
 				headers : {
 					"Content-Type" : "application/json",

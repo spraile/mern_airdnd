@@ -4,7 +4,7 @@ const Requests = () => {
 
  	const [requests,setRequests] = useState([])
 	useEffect(() => {
-		fetch('http://localhost:8000/requests/',{
+		fetch('https://cap3db.herokuapp.com/requests/',{
 			headers : {
 				"Authorization" : localStorage.getItem('token')
 			}
@@ -19,7 +19,7 @@ const Requests = () => {
 	const handleActionButton = (decision,request) => {
                 let newStatus = { decision : decision }
 				console.log(newStatus)
-				console.log('http://localhost:8000/requests/'+request._id)
+				console.log('https://cap3db.herokuapp.com/requests/'+request._id)
 				fetch('http://localhost:8000/requests/'+request._id, {
 					method : "PUT",
 					headers : {

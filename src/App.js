@@ -30,7 +30,7 @@ function App() {
 
   // useeffect on places
   useEffect(() => {
-    fetch("http://localhost:8000/places", {
+    fetch("https://cap3db.herokuapp.com/places", {
       method : "GET"
     })
     .then(data => data.json())
@@ -59,7 +59,7 @@ function App() {
   })
 
   useEffect(() => {
-    fetch('http://localhost:8000/reservations/',{
+    fetch('https://cap3db.herokuapp.com/reservations/',{
       headers : {
         "Authorization" : localStorage.getItem('token')
       }
@@ -72,7 +72,7 @@ function App() {
   },[])
 
   useEffect(() => {
-    fetch('http://localhost:8000/reservations/',{
+    fetch('https://cap3db.herokuapp.com/reservations/',{
       headers : {
         "Authorization" : localStorage.getItem('token')
       }
@@ -100,7 +100,7 @@ function App() {
   useEffect(() => {
 
     //top places
-    fetch("http://localhost:8000/places", {
+    fetch("https://cap3db.herokuapp.com/places", {
       method : "GET"
     })
     .then(data => data.json())
@@ -114,7 +114,7 @@ function App() {
 
 
     // all places
-    fetch("http://localhost:8000/places", {
+    fetch("https://cap3db.herokuapp.com/places", {
       method : "GET"
     })
     .then(data => data.json())
@@ -125,7 +125,7 @@ function App() {
     })
     .catch(error=>console.log(error))
 
-    fetch("http://localhost:8000/categories", {
+    fetch("https://cap3db.herokuapp.com/categories", {
 			method : "GET"
 		})
 		.then(data => data.json())
@@ -138,7 +138,7 @@ function App() {
   }, [])
 
   const handleSelectedPlace = (placeid) => {
-    fetch("http://localhost:8000/places/"+placeid,{
+    fetch("https://cap3db.herokuapp.com/places/"+placeid,{
       method : "GET"
     })
     .then(data => data.json())
