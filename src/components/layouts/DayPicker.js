@@ -49,11 +49,7 @@ const StartDayPicker = ({handleChangeReservedDates, selectedPlace}) => {
 					]
 				}
 			 />
-			{selectedDays ? (
-					<p>You clicked</p>
-				) : (
-					<p>Please select a day</p>
-				)}
+
 		</Fragment>
 	)
 }

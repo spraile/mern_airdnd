@@ -124,21 +124,21 @@ const Places = ({selectedPlace, categories}) => {
 									<div className="col-12 col-md-6 px-5">
 										<DayPicker handleChangeReservedDates={handleChangeReservedDates} selectedPlace={selectedPlace}/>
 									</div>
-									<div className="col-12 col-md-6 px-5">
+									<div className="col-12 col-md-6 p-3">
 										<input 
 											type="number" 
 											className="form-control" 
 											placeholder="Number of guests"
 											onChange={(e) => handleChangeGuestCount(e)}
 										/>
-										<div className="row">
+										<div className="row py-3">
 											<div className="col-12 col-md-6">
-												<p>{selectedPlace.baseprice} / night</p>
-												<p>{selectedPlace.baseprice*reservedDates.length} for {reservedDates.length} nights</p>
+												<p className="pt-3"><strong>&#8369; {selectedPlace.baseprice}</strong> / night</p>
+												<p><strong>&#8369; {selectedPlace.baseprice*reservedDates.length}</strong> for {reservedDates.length} nights</p>
 
 											</div>
 											<div className="col-12 col-md-6">
-												<button className="btn btn-success ml-auto" onClick={handleSaveDetails} data-dismiss="modal">Save</button>
+												<button className="btn btn-success border-radius-0 w-100 my-3 " onClick={handleSaveDetails} data-dismiss="modal">Save</button>
 											</div>
 										</div>
 									</div>

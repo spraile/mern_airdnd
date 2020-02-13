@@ -106,9 +106,9 @@ const Reservations = ({places}) => {
 							<tr>
 								<th scope="col">Reservation Code</th>
 								<th scope="col">Place</th>
-								<th scope="col">Reservation Start Date</th>
+								<th scope="col">Status</th>
 								<th scope="col">{JSON.parse(localStorage.getItem('user')).role == 'host' ?"Customer" : "Host"}</th>
-								<th scope="col" className={JSON.parse(localStorage.getItem('user')).role == 'host' ?"" : "d-none"}>Actions</th>
+								<th scope="col" className="">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -118,11 +118,11 @@ const Reservations = ({places}) => {
 										<tr>
 											<th scope="row">{reservation.code}</th>
 											<td>{reservation.placeName}</td>
-											<td>Reservation date</td>
+											<td>{reservation.status}</td>
 											<td>{JSON.parse(localStorage.getItem('user')).role == 'host' ? reservation.userName : reservation.hostName}</td>
 											<td className={JSON.parse(localStorage.getItem('user')).role == 'host' ?"" : "d-none"}>
-												<button className="btn btn-success w-100" onClick={() => handleActionButton("Accepted",reservation)}>Accept</button>
-												<button className="btn btn-danger w-100" onClick={() => handleActionButton("Rejected",reservation)}>Reject</button>
+												<button className={reservation.status == 'pending' ? "btn btn-success w-100" : "btn btn-success w-100 d-none"} onClick={() => handleActionButton("Accepted",reservation)}>Accept</button>
+												<button className={reservation.status =='pending' ? "btn btn-danger w-100" : "btn btn-danger w-100 d-none"} onClick={() => handleActionButton("Rejected",reservation)}>Reject</button>
 												{/* <button className="btn btn-info" onClick={() => handleActionButton("Completed",reservation)}>Complete</button> */}
 
 											</td>

@@ -13,13 +13,13 @@ const HostPanel = ({selectedPlace, categories, places, handleSelectedPlace}) => 
 		<div className="container">
 			
 			<div className="row">
-				<div className="col-12 col-md-2">
+				<div className="col-12 col-md-3">
 					<MyPlacesNav selectedPlace={selectedPlace} places={places} handleSelectedPlace={handleSelectedPlace}/>
 				</div>
 				<div className="col-12 col-md-6">
 					<EditPlace selectedPlace={selectedPlace} categories={categories}/>											
 				</div>
-				<div className="col-12 col-md-4">					
+				<div className="col-12 col-md-3">					
 					<AddImage selectedPlace={selectedPlace}/>
 					<DeleteImage selectedPlace={selectedPlace}/>
 					<DeletePlace selectedPlace={selectedPlace}/>
