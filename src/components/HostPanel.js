@@ -6,7 +6,7 @@ import DeleteImage from './forms/DeleteImage'
 import MyPlacesNav from './layouts/MyPlacesNav'
 
 
-const HostPanel = ({selectedPlace, categories, places, handleSelectedPlace}) => {
+const HostPanel = ({selectedPlace, categories, places, handleSelectedPlace, handlePlacesStatus}) => {
 	let hostPlaces = places.filter(place => place.hostId == JSON.parse(localStorage.getItem('user')).id)
 	console.log(hostPlaces)
 	return (
@@ -14,15 +14,15 @@ const HostPanel = ({selectedPlace, categories, places, handleSelectedPlace}) => 
 			
 			<div className="row">
 				<div className="col-12 col-md-3">
-					<MyPlacesNav selectedPlace={selectedPlace} places={places} handleSelectedPlace={handleSelectedPlace}/>
+					<MyPlacesNav selectedPlace={selectedPlace} places={places} handleSelectedPlace={handleSelectedPlace} handlePlacesStatus={handlePlacesStatus}/>
 				</div>
 				<div className="col-12 col-md-6">
-					<EditPlace selectedPlace={selectedPlace} categories={categories}/>											
+					<EditPlace selectedPlace={selectedPlace} categories={categories} handlePlacesStatus={handlePlacesStatus}/>											
 				</div>
 				<div className="col-12 col-md-3">					
-					<AddImage selectedPlace={selectedPlace}/>
-					<DeleteImage selectedPlace={selectedPlace}/>
-					<DeletePlace selectedPlace={selectedPlace}/>
+					<AddImage selectedPlace={selectedPlace} handlePlacesStatus={handlePlacesStatus}/>
+					<DeleteImage selectedPlace={selectedPlace} handlePlacesStatus={handlePlacesStatus}/>
+					<DeletePlace selectedPlace={selectedPlace} handlePlacesStatus={handlePlacesStatus}/>
 				</div>
 			</div>
 		</div>

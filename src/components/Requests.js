@@ -34,12 +34,14 @@ const Requests = () => {
 			
 	}
 	return (
-		<div className="container">
+		<div className="container py-5">
+
 			<h3>Requests</h3>
 			<hr/>
 			<div className="row">
 				<div className="col-12 col-md-3">
 					<div className="btn-group-vertical w-100">
+						<button className="btn btn-outline-info">All</button>
 						<button className="btn btn-outline-info">Pending</button>
 						<button className="btn btn-outline-info">Accepted</button>
 						<button className="btn btn-outline-info">Rejected</button>
@@ -66,8 +68,8 @@ const Requests = () => {
 											<td>{request.dateCreated}</td>
                                             <td>{request.status}</td>
 											<td>
-												<button className="btn btn-success" onClick={() => handleActionButton("Accepted",request)}>Accept</button>
-												<button className="btn btn-danger" onClick={() => handleActionButton("Rejected",request)}>Reject</button>
+												<button className={request.status == "pending" ? "btn btn-success" : "d-none"} onClick={() => handleActionButton("Accepted",request)}>Accept</button>
+												<button className={request.status == "pending" ? "btn btn-danger" : "d-none"} onClick={() => handleActionButton("Rejected",request)}>Reject</button>
 
 											</td>
 										</tr>

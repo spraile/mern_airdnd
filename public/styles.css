@@ -1,3 +1,11 @@
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+
+}
 .card-img-top {
     height : 200px;
     object-fit: cover;
@@ -23,6 +31,12 @@
 .fas {
     font-size: xxx-large;
 }
+
+.bg-dark {
+    background: #45050C !important;
+}
+
+
 
 .my-img {
     height : 50vh;

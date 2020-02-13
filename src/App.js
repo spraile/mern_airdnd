@@ -20,6 +20,77 @@ function App() {
     status : false
   })
 
+  const [placesStatus,setPlacesStatus] = useState({
+    lastUpdated : null,
+    status : null,
+    isLoading : false
+  })
+
+
+
+  // useeffect on places
+  useEffect(() => {
+    fetch("http://localhost:8000/places", {
+      method : "GET"
+    })
+    .then(data => data.json())
+    .then(places => {
+       places = shuffleArray(places)
+
+      setPlaces(places)
+           
+      setPlacesStatus({isLoading : false})
+
+    })
+  }, [placesStatus.isLoading])  
+
+  const handlePlacesStatus = (status) => {
+    setPlacesStatus(status)
+  }
+
+
+  // for reservations
+  const [reservations,setReservations] = useState([])
+
+   const [reservationsStatus,setReservationsStatus] = useState({
+    lastUpdated : null,
+    status : null,
+    isLoading : false
+  })
+
+  useEffect(() => {
+    fetch('http://localhost:8000/reservations/',{
+      headers : {
+        "Authorization" : localStorage.getItem('token')
+      }
+    })
+    .then(data => data.json())
+    .then(reservations => {
+      setReservations(reservations)
+    })
+    .catch(error => console.log(error))
+  },[])
+
+  useEffect(() => {
+    fetch('http://localhost:8000/reservations/',{
+      headers : {
+        "Authorization" : localStorage.getItem('token')
+      }
+    })
+    .then(data => data.json())
+    .then(reservations => {
+      setReservations(reservations)
+          setReservationsStatus({isLoading : false})
+
+    })
+    .catch(error => console.log(error))
+  },[reservationsStatus.isLoading])
+
+  const handleReservationsStatus = (status) => {
+    setReservationsStatus(status)
+  }
+
+
   const shuffleArray = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -96,7 +167,7 @@ function App() {
                 <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
               </Route>
               <Route path={"/places/view"}>
-                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} />} 
+                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
               </Route>
               <Route path={"/my-places"}>
                 <HostPanel 
@@ -104,10 +175,11 @@ function App() {
                   categories={categories} 
                   places={places} 
                   handleSelectedPlace={handleSelectedPlace}
+                  handlePlacesStatus={handlePlacesStatus}
                 />  
               </Route>
               <Route path={"/places/add-place"}>
-                <AddPlace categories={categories}/>  
+                <AddPlace categories={categories} handlePlacesStatus={handlePlacesStatus}/>  
               </Route>
               <Route path={"/login"}>
                 {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
@@ -119,7 +191,7 @@ function App() {
                 <DayPicker />  
               </Route>
               <Route path={"/reservations"}>
-                <Reservations places={places}/>  
+                <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
               </Route>
               <Route path={"/requests"}>
                 <Requests/>  

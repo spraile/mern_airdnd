@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const AddPlaceForm = ({categories}) => {
+const AddPlaceForm = ({categories, handlePlacesStatus}) => {
     const [place,setPlace] = useState({})
 
 	const formData = new FormData()
@@ -55,7 +55,13 @@ const AddPlaceForm = ({categories}) => {
 		})
 		.then(data => data.json())
 		.then(newProduct => {
+			handlePlacesStatus({
+				lastUpdated : newProduct._id,
+				status : 'pass',
+				isLoading : true
+			})
 			console.log(newProduct)
+			window.location.href = "http://localhost:3000/my-places"
 		})
 		.catch(error => {
 			console.log(error)

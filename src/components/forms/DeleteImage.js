@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const RemoveImage = ({selectedPlace}) => {
+const RemoveImage = ({selectedPlace,handlePlacesStatus}) => {
 	let imageIdState = ""
 	let imageImageState = ""
 	if(selectedPlace.name) {
@@ -32,7 +32,13 @@ const RemoveImage = ({selectedPlace}) => {
 			}
 		})
 		.then(data => data.json())
-		.then(category => console.log(category))
+		.then(newProduct => {
+			handlePlacesStatus({
+				lastUpdated : newProduct._id,
+				status : 'pass',
+				isLoading : true
+			})
+		})
 	}
 	if(selectedPlace.name) {
 	return (

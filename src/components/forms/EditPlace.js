@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-const EditPlace = ({categories, selectedPlace}) => {
+const EditPlace = ({categories, selectedPlace,handlePlacesStatus}) => {
     const [place,setPlace] = useState({
 		name : selectedPlace.name,
 		baseprice : selectedPlace.baseprice,
@@ -44,7 +44,13 @@ const EditPlace = ({categories, selectedPlace}) => {
 			body : JSON.stringify(place),
 		})
 		.then(data => data.json())
-		.then(newPlace => console.log(newPlace))
+		.then(newPlace => {
+			handlePlacesStatus({
+				lastUpdated : newPlace._id,
+				status : 'pass',
+				isLoading : true
+			})
+		})
 		.catch(error => {
 			console.log(error)
 		})

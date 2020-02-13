@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const DeletePlace = ({selectedPlace}) => {
+const DeletePlace = ({selectedPlace,handlePlacesStatus}) => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
@@ -13,7 +13,13 @@ const DeletePlace = ({selectedPlace}) => {
 			}
 		})
 		.then(data => data.json())
-		.then(category => console.log(category))
+		.then(newProduct => {
+			handlePlacesStatus({
+				lastUpdated : newProduct._id,
+				status : 'pass',
+				isLoading : true
+			})
+		})
 	}
 
 	return (

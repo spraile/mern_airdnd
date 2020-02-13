@@ -23,7 +23,7 @@ const Navbar = ({handleLogOut}) => {
 						<NavLink to="/my-places" className="nav-link">My Places</NavLink>
 					</li>
 					<li className="nav-item">
-						<NavLink to="/places/add-place" className="nav-link">Hosting? List your place</NavLink>
+						<NavLink to="/places/add-place" className="nav-link">Host a Home</NavLink>
 					</li>
 					<li className="nav-item">
 						<NavLink to="/reservations" className="nav-link">Reservations</NavLink>
@@ -34,8 +34,7 @@ const Navbar = ({handleLogOut}) => {
 						</a>
 						<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 							<Link className="dropdown-item" to="#">Profile</Link>
-							<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
-						<div className="dropdown-divider"></div>
+					
 							<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
 						</div>
 					</li>
@@ -76,8 +75,7 @@ const Navbar = ({handleLogOut}) => {
 					</a>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 						<Link className="dropdown-item" to="#">Profile</Link>
-						<Link className="dropdown-item" data-toggle="modal" data-target="#hostRequest">Become a Host</Link>
-					<div className="dropdown-divider"></div>
+					
 						<Link className="dropdown-item" to="/" onClick={() => handleLogOut()}>Logout</Link>
 					</div>
 				</li>

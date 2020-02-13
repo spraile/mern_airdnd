@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const AddImage = ({selectedPlace}) => {
+const AddImage = ({selectedPlace, handlePlacesStatus}) => {
     const [place,setPlace] = useState({})
 
 	const formData = new FormData()

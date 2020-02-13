@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import DayPicker from "./DayPicker"
 
 
-const Places = ({selectedPlace, categories}) => {
+const Places = ({selectedPlace, categories, handleReservationsStatus}) => {
 	const [reservedDates, setReservedDates] = useState([])
 	const [guestCount, setGuestCount] = useState(null)
 	const [bookingDetails, setBookingDetails] = useState({
@@ -38,7 +38,10 @@ const Places = ({selectedPlace, categories}) => {
 			placeName : selectedPlace.name
 		})
 	}
-	const usr = JSON.parse(localStorage.getItem('user'))
+	let usr = JSON.parse(localStorage.getItem('user'))
+	if(!usr) {
+		usr = { role : ""}
+	}
 	const icon = (usr) => {
 		if(usr) {
 			if(usr.id == selectedPlace.hostId) {
@@ -60,7 +63,14 @@ const Places = ({selectedPlace, categories}) => {
 			body : JSON.stringify(bookingDetails)
 		})
 		.then( data => data.json())
-		.then( reservation => console.log(reservation))
+		.then( reservation => {
+			handleReservationsStatus({
+				lastUpdated : reservation._id,
+				status : 'pass',
+				isLoading : true
+			})
+			window.location.href = "http://localhost:3000/reservations"
+		})
 		.catch(error => console.log(error))
 	}
 	if(!selectedPlace) {
