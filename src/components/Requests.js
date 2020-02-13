@@ -68,8 +68,8 @@ const Requests = () => {
 											<td>{request.dateCreated}</td>
                                             <td>{request.status}</td>
 											<td>
-												<button className={request.status == "pending" ? "btn btn-success" : "d-none"} onClick={() => handleActionButton("Accepted",request)}>Accept</button>
-												<button className={request.status == "pending" ? "btn btn-danger" : "d-none"} onClick={() => handleActionButton("Rejected",request)}>Reject</button>
+												<button className={request.status == "Pending" ? "btn btn-success" : "d-none"} onClick={() => handleActionButton("Accepted",request)}>Accept</button>
+												<button className={request.status == "Pending" ? "btn btn-danger" : "d-none"} onClick={() => handleActionButton("Rejected",request)}>Reject</button>
 
 											</td>
 										</tr>
