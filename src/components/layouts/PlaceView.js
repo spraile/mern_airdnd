@@ -90,10 +90,10 @@ const Places = ({selectedPlace, categories, handleReservationsStatus}) => {
 				</div>
 				<div className="row py-3">
 					<div className="col-12 col-md-6">
-						<img src={"http://localhost:8000"+selectedPlace.images[0].image} className="w-100 my-img"alt=""/>
+						<img src={"https://cap3db.herokuapp.com"+selectedPlace.images[0].image} className="w-100 my-img"alt=""/>
 					</div>
 					<div className="col-12 col-md-6">
-						<img src={"http://localhost:8000"+selectedPlace.images[1].image} className="w-100 my-img"alt=""/>
+						<img src={"https://cap3db.herokuapp.com"+selectedPlace.images[1].image} className="w-100 my-img"alt=""/>
 					</div>
 				</div>
 				<div className="row py-3">
