@@ -20,7 +20,7 @@ const Requests = () => {
                 let newStatus = { decision : decision }
 				console.log(newStatus)
 				console.log('https://cap3db.herokuapp.com/requests/'+request._id)
-				fetch('http://localhost:8000/requests/'+request._id, {
+				fetch('https://cap3db.herokuapp.com/requests/'+request._id, {
 					method : "PUT",
 					headers : {
 						"Content-Type" : "application/json",

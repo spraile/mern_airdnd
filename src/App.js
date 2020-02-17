@@ -158,106 +158,116 @@ function App() {
 
   }
 
-  let usr = localStorage.getItem('user')
-  if(usr) {
-    if(usr.role == 'admin'){
-      return (
-        <Router>
-          <div className="App">
-           <Switch>
-              <Route path={"/requests"}>
-                <Requests/>  
-              </Route>
-              <Route exact path="/">
-                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
-              </Route>
-              <Route path={"/places/view"}>
-                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
-              </Route>
-           </Switch>
-          </div>
-        </Router>
-      )
-    } else if (usr.role == 'host') {
-      return (
-        <Router>
-          <div className="App">
-           <Switch>
-              <Route path={"/my-places"}>
-                <HostPanel 
-                  selectedPlace={selectedPlace} 
-                  categories={categories} 
-                  places={places} 
-                  handleSelectedPlace={handleSelectedPlace}
-                  handlePlacesStatus={handlePlacesStatus}
-                />  
-              </Route>
-              <Route path={"/places/add-place"}>
-                <AddPlace categories={categories} handlePlacesStatus={handlePlacesStatus}/>  
-              </Route>
-              <Route exact path="/">
-                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
-              </Route>
-              <Route path={"/places/view"}>
-                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
-              </Route>
-              <Route path={"/reservations"}>
-                <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
-              </Route>
-              <Route path={"/daypicker"}>
-                <DayPicker />  
-              </Route>
-           </Switch>
-          </div>
-        </Router>
-      )
-    } else if (usr.role == 'user') {
-      return (
-        <Router>
-          <div className="App">
-           <Switch>
+  let usr = JSON.parse(localStorage.getItem('user'))
+  if(!usr){
+    usr = { role : "unlogged"}
+  }
 
-              <Route exact path="/">
-                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
-              </Route>
-              <Route path={"/places/view"}>
-                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
-              </Route>
-              <Route path={"/reservations"}>
-                <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
-              </Route>
-              <Route path={"/daypicker"}>
-                <DayPicker />  
-              </Route>
-           </Switch>
-          </div>
-        </Router>
+  const routeWhich = (usrRole) => {
+    if(usrRole == 'admin'){
+      return (
+        <React.Fragment>
+        <Route exact path="/">
+          <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
+        </Route>
+        <Route path={"/places/view"}>
+          { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
+        </Route>
+        <Route path={"/daypicker"}>
+          <DayPicker />  
+        </Route>
+        <Route path={"/requests"}>
+          <Requests/>  
+        </Route>
+        <Route path={"/login"}>
+          {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
+        </Route>
+        </React.Fragment>
       )
+    } else if (usrRole == 'host') {
+      return (
+        <React.Fragment>
+        <Route exact path="/">
+          <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
+        </Route>
+        <Route path={"/places/view"}>
+          { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
+        </Route>
+        <Route path={"/my-places"}>
+          <HostPanel 
+            selectedPlace={selectedPlace} 
+            categories={categories} 
+            places={places} 
+            handleSelectedPlace={handleSelectedPlace}
+            handlePlacesStatus={handlePlacesStatus}
+          />  
+        </Route>
+        <Route path={"/places/add-place"}>
+          <AddPlace categories={categories} handlePlacesStatus={handlePlacesStatus}/>  
+        </Route>
+        <Route path={"/reservations"}>
+          <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
+        </Route>
+        <Route path={"/login"}>
+          {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
+        </Route>
+        </React.Fragment>
+      )
+    } else if (usrRole == 'user') {
+      return (
+        <React.Fragment>
+        <Route exact path="/">
+          <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
+        </Route>
+        <Route path={"/places/view"}>
+          { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
+        </Route>
+        <Route path={"/reservations"}>
+          <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
+        </Route>
+        <Route path={"/daypicker"}>
+          <DayPicker />  
+        </Route>
+        <Route path={"/login"}>
+          {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
+        </Route>
+        </React.Fragment>
+      )
+    } else {
+        return (
+          <React.Fragment>
+          <Route exact path="/">
+            <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
+          </Route>
+          <Route path={"/places/view"}>
+            { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
+          </Route>
+          <Route path={"/daypicker"}>
+            <DayPicker />  
+          </Route>
+          <Route path={"/login"}>
+            {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
+          </Route>
+          <Route path={"/register"}>
+            <Register/>  
+          </Route>
+          </React.Fragment>
+        )
     }
-  else {
+  } 
+
     return (
       <Router>
         <div className="App">
+        <Navbar handleLogOut={handleLogOut} />
          <Switch>
 
-            <Route exact path="/">
-              <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
-            </Route>
-            <Route path={"/places/view"}>
-              { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
-            </Route>
-            <Route path={"/register"}>
-              <Register/>  
-            </Route>
-            <Route path={"/daypicker"}>
-              <DayPicker />  
-            </Route>
+         {routeWhich(usr.role)}
          </Switch>
         </div>
       </Router>
     )
-  }
-  }
+
 }
 
 export default App;
