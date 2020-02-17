@@ -158,12 +158,69 @@ function App() {
 
   }
 
+  let usr = localStorage.getItem('user')
+
   return (
         <Router>
         <div className="App">
             <Navbar handleLogOut={handleLogOut}/>
             <Switch>
+              {
+                if(usr) {
+                  if(usr.role == 'admin') {
+                    return (
+                      <Route path={"/requests"}>
+                        <Requests/>  
+                      </Route>
+                    )
+                  } else if (usr.role == 'host') {
+                    <Route path={"/my-places"}>
+                      <HostPanel 
+                        selectedPlace={selectedPlace} 
+                        categories={categories} 
+                        places={places} 
+                        handleSelectedPlace={handleSelectedPlace}
+                        handlePlacesStatus={handlePlacesStatus}
+                      />  
+                    </Route>
+                    <Route path={"/places/add-place"}>
+                      <AddPlace categories={categories} handlePlacesStatus={handlePlacesStatus}/>  
+                    </Route>
+
+                  }
+                }
+              }
               <Route exact path="/">
+                <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
+              </Route>
+              <Route path={"/places/view"}>
+                { !selectedPlace.name ? <Redirect to='/'/> : <PlaceView selectedPlace={selectedPlace} categories={categories} handleReservationsStatus={handleReservationsStatus} />} 
+              </Route>
+              
+              
+              <Route path={"/login"}>
+                {isLogged.status ? <Redirect to ="/" /> : <Login handleIsLogged={handleIsLogged}/>}  
+              </Route>
+              <Route path={"/register"}>
+                <Register/>  
+              </Route>
+              <Route path={"/daypicker"}>
+                <DayPicker />  
+              </Route>
+              <Route path={"/reservations"}>
+                <Reservations places={places} reservations={reservations} handlePlacesStatus={handlePlacesStatus} handleReservationsStatus={handleReservationsStatus}/>  
+              </Route>
+              
+            </Switch>
+        </div>
+        </Router>
+  );
+}
+
+export default App;
+
+
+{/*<Route exact path="/">
                 <Places topPlaces={topPlaces} handleSelectedPlace={handleSelectedPlace} categories={categories} places={places} />  
               </Route>
               <Route path={"/places/view"}>
@@ -195,11 +252,4 @@ function App() {
               </Route>
               <Route path={"/requests"}>
                 <Requests/>  
-              </Route>
-            </Switch>
-        </div>
-        </Router>
-  );
-}
-
-export default App;
+              </Route>*/}
