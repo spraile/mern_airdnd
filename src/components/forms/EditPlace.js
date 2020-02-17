@@ -33,7 +33,7 @@ const EditPlace = ({categories, selectedPlace,handlePlacesStatus}) => {
 	const handleEditPlace = (e) => {
 		e.preventDefault()
 		console.log(place)
-		let url = 'https://cap3db.herokuapp.com/'+selectedPlace._id
+		let url = 'https://cap3db.herokuapp.com/places/'+selectedPlace._id
 		fetch(url, {
 			method : "PUT",
 			// mode : "no-cors",

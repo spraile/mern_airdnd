@@ -22,7 +22,7 @@ const RemoveImage = ({selectedPlace,handlePlacesStatus}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		let url = 'https://cap3db.herokuapp.com/'+selectedPlace._id+"/"+imageId
+		let url = 'https://cap3db.herokuapp.com/places/'+selectedPlace._id+"/"+imageId
 		console.log(url)
 		fetch(url, {
 			method : "PUT",

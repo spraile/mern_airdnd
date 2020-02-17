@@ -15,7 +15,7 @@ const Places = ({topPlaces,handleSelectedPlace, categories, places}) => {
 								return (
 									<Link to={"/places/view"} onMouseOver={() => handleSelectedPlace(place._id) } className="myLink">
 										<div className="card border-0" key={place._id}>
-											<img src={"http://localhost:8000"+place.images[0].image} className="card-img-top img-fluid" />
+											<img src={"https://cap3db.herokuapp.com"+place.images[0].image} className="card-img-top img-fluid" />
 											<div className="card-body p-0 pt-2">
 												<p className="card-text m-0"><small>{place.location}</small></p>
 												<h5 className="card-title m-0">{place.name}</h5>
@@ -35,7 +35,7 @@ const Places = ({topPlaces,handleSelectedPlace, categories, places}) => {
 								return (
 									<Link to={"/places/view"} onMouseOver={() => handleSelectedPlace(place._id)} className="myLink">
 										<div className="card border-0" key="place._id">
-											<img src={"http://localhost:8000"+place.images[0].image} className="card-img-top img-fluid" />
+											<img src={"https://cap3db.herokuapp.com"+place.images[0].image} className="card-img-top img-fluid" />
 											<div className="card-body p-0 pt-2">
 												<p className="card-text m-0"><small>{place.location}</small></p>
 												<h5 className="card-title m-0">{place.name}</h5>
